@@ -2,6 +2,7 @@ FROM python:3
 
 ADD model.py /
 ADD server.py /
+ADD requirements.txt /
 
 RUN pip install -r requierements.txt
 
