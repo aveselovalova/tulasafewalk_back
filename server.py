@@ -23,6 +23,14 @@ class TrafficAccident(db.Model):
 		self.district = district
 		self.accident_type = accident_type
 
+	def as_json(self):
+		return dict(
+			input_id=self.id, date = self.date,
+			latitude = self.latitude, 
+			longitude = self.longitude,
+			district = self.district,
+			accident_type = self.accident_type)
+
 
 @app.route("/test/", methods=['GET'])
 def get_params():
@@ -31,9 +39,13 @@ def get_params():
 	if(request.method == 'GET'):
 		begin_date = request.args.get('begin')
 		end_date = request.args.get('end')
-	dates = json.dumps({'begin':begin_date, 'end':end_date})
-	accidents = TrafficAccident.query.all()
-	return accidents[0].district
+
+	accidents = TrafficAccident.query.filter(
+		TrafficAccident.date >= begin_date,
+		TrafficAccident.date <= end_date,
+		).all()
+	results = [json.dumps(accident.as_json(), ensure_ascii=False) for accident in accidents]
+	return json.dumps(results, ensure_ascii=False)
 
 if __name__ == '__main__':
 	db.create_all()
