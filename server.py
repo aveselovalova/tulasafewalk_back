@@ -2,7 +2,7 @@ from flask import request
 import json
 from model import TrafficAccident, app, db
 
-@app.route("/test/", methods=['GET'])
+@app.route("/get-data/", methods=['GET'])
 def main():
 	begin_date = ''
 	end_date = ''
