@@ -20,8 +20,8 @@ def select_data(begin_date, end_date):
 
 def get_coordinates(begin_date, end_date):
 	accidents = select_data(begin_date, end_date)
-	results = [json.dumps(accident.coordinates_as_json(), ensure_ascii=False).replace('\\"',"\"") for accident in accidents]
-	return results
+	results = [json.dumps(accident.coordinates_as_json(), ensure_ascii=False) for accident in accidents]
+	return json.dumps(results, ensure_ascii=False)
 
 
 if __name__ == '__main__':
