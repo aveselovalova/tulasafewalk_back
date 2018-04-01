@@ -10,7 +10,7 @@ def main():
 		begin_date = request.args.get('begin')
 		end_date = request.args.get('end')
 
-	return get_json_accidents(begin_date, end_date)
+	return get_coordinates(begin_date, end_date)
 
 def select_data(begin_date, end_date):
 	return TrafficAccident.query.filter(
@@ -18,9 +18,9 @@ def select_data(begin_date, end_date):
 			TrafficAccident.date <= end_date,
 		).all()
 
-def get_json_accidents(begin_date, end_date):
+def get_coordinates(begin_date, end_date):
 	accidents = select_data(begin_date, end_date)
-	results = [json.dumps(accident.as_json(), ensure_ascii=False) for accident in accidents]
+	results = [json.dumps(accident.coordinates_as_json(), ensure_ascii=False) for accident in accidents]
 	return json.dumps(results, ensure_ascii=False)
 
 
