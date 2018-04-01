@@ -34,7 +34,7 @@ class TrafficAccident(db.Model):
 
 	def coordinates_as_json(self):
 		return dict( position = {
-				'lat' : self.latitude, 
-				'lng' : self.longitude
+				'lng' : self.latitude, 
+				'lat' : self.longitude
 			}
 		)
